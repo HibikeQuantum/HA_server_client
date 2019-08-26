@@ -3,7 +3,13 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  if (req.method === "OPTION"){
+    res.send(200);
+  } else {
+    res.send("확.인.");
+    console.log("/ GET 확인");
+  }
+
 });
 
 module.exports = router;

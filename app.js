@@ -1,19 +1,31 @@
 var createError = require('http-errors');
 var express = require('express');
-
 var app = express();
+const cors = require('cors');
+app.use(cors({credential:true, origin:'*'}));
 
-// view engine setup
+require('./model/db');
+const User = require('./model/user');
+const Route = express.Route;
 
+app.listen(5000, ()=> {
+  console.log("START <5000>");
+})
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+User.countDocuments({}, (err, count) => {
+  if (count === 0) {
+    console.log("데이터 초기화");
+    require('./model/init')
+  }
+})
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/user');
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
