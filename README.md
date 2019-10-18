@@ -1,4 +1,4 @@
-# HA기능테스트
+# HiringAssessment 제출 Repo
 
 ## 시작
 npm start
